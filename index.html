@@ -89,12 +89,15 @@
   
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
-      window.TrackJS && TrackJS.install({
-          token: "2a17050707ff4a63a9649f4332b07e9f"
-      });
+    window.TrackJS && TrackJS.install({ 
+      token: "2a17050707ff4a63a9649f4332b07e9f"
+      // for more configuration options, see https://docs.trackjs.com
+    });
 
-      TrackJS.track('Testing TrackJS!');
+    TrackJS.track('Testing TrackJS!');
   </script>
+                        
+                        
                         
   <script>
     let form = document.querySelector('form');
@@ -248,21 +251,11 @@
 
     window.onerror = (msg, url, lineNo, columnNo, error) => {
       console.log('We have an error!\n' + `\tError Message: ${msg}\n\tError URL: ${url}\n\tError Line Number: ${lineNo}\n\tError Column Number: ${columnNo}`)
-      
+      TrackJS.track(error);
     }
 
     /**
-     * Step 3 - Trying Try/Catch
-     * Next explore the use of try/catch/finally and throw in your program.  
-     * Before you do this, read the article referenced as it may work differently than Java.  
-     * To trigger an error you may need to do something like comment out a DOM node with an HTML comment or manipulate the program unexpectedly.  
-     * Try to make your example more realistic than just inserting some code like aintGonnaWork(); and watching it error.
-     */
-
-    /**
      * Step 4 - Throw and Custom Errors
-     * Now explore the use of `throw` and extending the Error object to use a custom error type.  
-     * The article here does a good job of explaining how this goes: Custom errors, extending Error (javascript.info)
      */
      class ValidationError extends Error {
       constructor(message) {
@@ -271,7 +264,9 @@
       }
     }
     
-    // Try/Catch/Finally
+    /**
+     * Step 3 - Trying Try/Catch
+     */
     function addition(a, b) {
       if (typeof a !== 'number' || typeof b !== 'number') {
         throw new ValidationError();
@@ -295,12 +290,6 @@
     
     addition(5, 10);
     addition(5, '10');
-
-    /**
-     *  Step 5 - The Global Error handler and 3rd Party Tracking
-     */
-     TrackJS.track('Testing TrackJS!');
-    
   </script>
 </body>
 
