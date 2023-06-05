@@ -102,6 +102,186 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    /**
+     * Step 2 - Adding Buttons for Console Testing
+     * Now for each of the buttons in the starter code give functionality to them that correspond to each of the `console` 
+     * methods we listed previously (console.log, console.error, console.table, console.dir, console.dirxml, console.group (includes related functions to use properly),
+     * console.time / console.timeEnd,  and console.trace.). The idea being is you press a button that says "Console Log Demo" and 
+     * it performs that method on some data in your example.
+     */
+
+    // Get console buttons from the array
+    let consoleLogButton = errorBtns[0];
+    let consoleErrorButton = errorBtns[1];
+    let consoleCountButton = errorBtns[2];
+    let consoleWarnButton = errorBtns[3];
+    let consoleAssertButton = errorBtns[4];
+    let consoleClearButton = errorBtns[5];
+    let consoleDirButton = errorBtns[6];
+    let consoleDirxmlButton = errorBtns[7];
+    let consoleGroupStartButton = errorBtns[8];
+    let consoleGroupEndButton = errorBtns[9];
+    let consoleTableButton = errorBtns[10];
+    let startTimerButton = errorBtns[11];
+    let endTimerButton = errorBtns[12];
+    let consoleTraceButton = errorBtns[13];
+    let triggerGlobalErrorButton = errorBtns[14];
+
+    // Add event listeners to the console buttons
+    // Console Log Button
+    consoleLogButton.addEventListener('click', () => {
+      console.log('This is a console log message. This will print whatever we want to the console, at least for debugging.');
+    });
+
+    // Console Error Button
+    consoleErrorButton.addEventListener('click', () => {
+      console.error('Wrong argument(s). Check your work and try again.');
+    });
+
+    // Console Count Button
+    consoleCountButton.addEventListener('click', () => {
+      console.count('Number of times this button has been clicked:');
+    });
+
+    // Console Warn Button
+    consoleWarnButton.addEventListener('click', () => {
+      console.warn('⚠️ Warning: This code demands a daring spirit. Are you up for the challenge? ⚠️');
+    }); 
+
+    // Console Assert Button
+    consoleAssertButton.addEventListener('click', () => {
+      const a = 10;
+      const b = 20;
+      const reason = 'a + b is expected to be 30';
+      console.assert((a + b) == 20, {a, b, reason});
+    });
+
+    // Console Clear Button
+    consoleClearButton.addEventListener('click', () => {
+      console.clear();
+    });
+
+    // Console Dir Button
+    consoleDirButton.addEventListener('click', () => {
+      console.dir(document.head);
+    });
+
+    // Console Dirxml Button
+    consoleDirxmlButton.addEventListener('click', () => {
+      console.dirxml(document);
+    });
+
+    // Console Group Start Button
+    consoleGroupStartButton.addEventListener('click', () => {
+      console.group('Group 1');
+      console.info('First element');
+      console.info('Second element');
+      console.info('Third element');
+    });
+
+    // Console Group End Button
+    consoleGroupEndButton.addEventListener('click', () => {
+      console.groupEnd('Group 1');
+    });
+
+    // Console Table Button
+    consoleTableButton.addEventListener('click', () => {
+      var employeeList = [
+        {
+          name: 'John',
+          age: 21,
+          position: 'Software Engineer',
+          phoneNumber: '000-000-0000'
+        }, 
+        {
+          name: 'Jane',
+          age: 22,
+          position: 'Web Developer',
+          phoneNumber: '123-456-7890'
+        },
+        {
+          name: 'Jack',
+          age: 23,
+          position: 'UI/UX Designer',
+          phoneNumber: '987-654-3210'
+        }
+      ];
+
+      console.table(employeeList);
+    });
+
+    // Start Timer Button
+    startTimerButton.addEventListener('click', () => {
+      console.log('Timer Set!');
+      console.time('Take');
+    });
+
+    // End Timer Button
+    endTimerButton.addEventListener('click', () => {
+      console.timeEnd('Take');
+    });
+
+    // Console Trace Button
+    consoleTraceButton.addEventListener('click', () => {
+      const one = () => { two(); };
+      const two = () => { three(); };
+      const three = () => { four(); };
+      const four = () => { console.trace(); };
+      one();
+    });
+
+    // Trigger Global Error Button
+    triggerGlobalErrorButton.addEventListener('click', () => {
+      try {
+        throw new Error('This is a global error. Watch out!');
+      } 
+      catch (error) {
+        console.error(error);
+      }
+    });
+
+    /**
+     * Step 3 - Trying Try/Catch
+     * Next explore the use of try/catch/finally and throw in your program.  
+     * Before you do this, read the article referenced as it may work differently than Java.  
+     * To trigger an error you may need to do something like comment out a DOM node with an HTML comment or manipulate the program unexpectedly.  
+     * Try to make your example more realistic than just inserting some code like aintGonnaWork(); and watching it error.
+     */
+
+     class ValidationError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "Wrong type. Check your work and try again.";
+      }
+    }
+    
+    // Try/Catch/Finally
+    function addition(a, b) {
+      if (typeof a !== 'number' || typeof b !== 'number') {
+        throw new ValidationError();
+      }
+
+      try {
+        console.log(`${a} + ${b} = ${a + b}`);
+      } 
+      catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message);
+        }
+        else {
+          throw error;
+        }
+      }
+      finally {
+        console.table([a, b]);
+      }
+    }
+    
+    addition(5, 10);
+    addition(5, '10');
+
+    
   </script>
 </body>
 
