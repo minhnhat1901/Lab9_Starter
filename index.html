@@ -86,7 +86,16 @@
       <button>Trigger a Global Error</button>
     </section>
   </main>
+  
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+      window.TrackJS && TrackJS.install({
+          token: "2a17050707ff4a63a9649f4332b07e9f"
+      });
 
+      TrackJS.track('Testing TrackJS!');
+  </script>
+                        
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -141,7 +150,7 @@
 
     // Console Count Button
     consoleCountButton.addEventListener('click', () => {
-      console.count('Number of times this button has been clicked:');
+      console.count('Number of times this button has been clicked');
     });
 
     // Console Warn Button
@@ -233,13 +242,14 @@
 
     // Trigger Global Error Button
     triggerGlobalErrorButton.addEventListener('click', () => {
-      try {
-        throw new Error('This is a global error. Watch out!');
-      } 
-      catch (error) {
-        console.error(error);
-      }
+      throw new Error('This is a global error. Watch out!');
+      TrackJS.track('Global Error Button has been clicked!');
     });
+
+    window.onerror = (msg, url, lineNo, columnNo, error) => {
+      console.log('We have an error!\n' + `\tError Message: ${msg}\n\tError URL: ${url}\n\tError Line Number: ${lineNo}\n\tError Column Number: ${columnNo}`)
+      
+    }
 
     /**
      * Step 3 - Trying Try/Catch
@@ -249,6 +259,11 @@
      * Try to make your example more realistic than just inserting some code like aintGonnaWork(); and watching it error.
      */
 
+    /**
+     * Step 4 - Throw and Custom Errors
+     * Now explore the use of `throw` and extending the Error object to use a custom error type.  
+     * The article here does a good job of explaining how this goes: Custom errors, extending Error (javascript.info)
+     */
      class ValidationError extends Error {
       constructor(message) {
         super(message);
@@ -281,6 +296,10 @@
     addition(5, 10);
     addition(5, '10');
 
+    /**
+     *  Step 5 - The Global Error handler and 3rd Party Tracking
+     */
+     TrackJS.track('Testing TrackJS!');
     
   </script>
 </body>
